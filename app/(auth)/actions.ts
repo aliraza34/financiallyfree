@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { hasSupabasePublicEnv } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 const authSchema = z.object({
@@ -10,6 +11,10 @@ const authSchema = z.object({
 });
 
 export async function loginAction(formData: FormData) {
+  if (!hasSupabasePublicEnv()) {
+    redirect("/login?error=Add Supabase env values to .env.local before logging in.");
+  }
+
   const parsed = authSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -30,6 +35,10 @@ export async function loginAction(formData: FormData) {
 }
 
 export async function registerAction(formData: FormData) {
+  if (!hasSupabasePublicEnv()) {
+    redirect("/register?error=Add Supabase env values to .env.local before creating an account.");
+  }
+
   const parsed = authSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -53,6 +62,10 @@ export async function registerAction(formData: FormData) {
 }
 
 export async function logoutAction() {
+  if (!hasSupabasePublicEnv()) {
+    redirect("/login");
+  }
+
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/login");

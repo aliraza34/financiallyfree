@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-05-01)
 ## Current Position
 
 Phase: 1 of 5 (Foundation, Auth, and Onboarding)
-Plan: 0 of 4 in current phase
-Status: Ready to plan
-Last activity: 2026-05-01 - New-project workflow completed through research summary, requirements, roadmap, and state initialization.
+Plan: 4 of 4 in current phase
+Status: In progress - implementation scaffold built, awaiting Supabase env/migration verification
+Last activity: 2026-05-01 - Phase 1 development started: Next.js scaffold, Prisma schema, RLS migration, Supabase auth helpers, onboarding flow, protected dashboard, PKR utility, and PWA manifest added.
 
-Progress: [----------] 0%
+Progress: [##--------] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
+- Total plans completed: 0 verified, 4 implemented pending environment verification
 - Average duration: n/a
 - Total execution time: 0.0 hours
 
@@ -27,7 +27,7 @@ Progress: [----------] 0%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation, Auth, and Onboarding | 0/4 | n/a | n/a |
+| 1. Foundation, Auth, and Onboarding | 4/4 implemented | n/a | n/a |
 | 2. Salary Allocation and Transactions | 0/3 | n/a | n/a |
 | 3. Budgets, Debt, and Committees | 0/3 | n/a | n/a |
 | 4. Goals and Dashboard | 0/3 | n/a | n/a |
@@ -54,9 +54,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Amount storage strategy must be chosen before the first Prisma model is implemented: `Decimal` or paisa integer.
-- Supabase Prisma migration user and dual connection strings must be configured before migrations.
+- Amount storage strategy chosen: paisa integer amounts stored as `BigInt` fields ending in `Paisa`.
+- Supabase Prisma migration user and dual connection strings must be configured before applying migrations.
 - Competitor claims and AI model IDs require fresh verification in later phases.
+- Phase 1 requires real Supabase env values before auth and onboarding can be manually verified end to end.
 
 ## Deferred Items
 
@@ -68,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-01
-Stopped at: Project initialization complete; next step is `$gsd-plan-phase 1` or `$gsd-discuss-phase 1`.
+Stopped at: Phase 1 implementation scaffold built and verified locally with typecheck, lint, and production build.
 Resume file: None

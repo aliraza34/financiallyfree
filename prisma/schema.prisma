@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public"]
+}
+
+model Profile {
+  id                    String             @id @map("id") @db.Uuid
+  name                  String?
+  salaryPaisa           BigInt             @default(0) @map("salary_paisa")
+  salaryDay             Int                @default(1) @map("salary_day")
+  emergencyFundPaisa    BigInt             @default(0) @map("emergency_fund_paisa")
+  freedomTargetPaisa    BigInt             @default(5000000000) @map("freedom_target_paisa")
+  islamicMode           Boolean            @default(true) @map("islamic_mode")
+  strictMode            Boolean            @default(false) @map("strict_mode")
+  onboardingComplete    Boolean            @default(false) @map("onboarding_complete")
+  createdAt             DateTime           @default(now()) @map("created_at")
+  updatedAt             DateTime           @updatedAt @map("updated_at")
+  salaryAllocations     SalaryAllocation[]
+  bucketAllocations     BucketAllocation[]
+  transactions          Transaction[]
+  debts                 Debt[]
+  committees            Committee[]
+  goals                 Goal[]
+
+  @@map("profiles")
+  @@schema("public")
+}
+
+model SalaryAllocation {
+  id                 String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId             String             @map("user_id") @db.Uuid
+  month              DateTime           @db.Date
+  salaryPaisa        BigInt             @map("salary_paisa")
+  status             AllocationStatus   @default(DRAFT)
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  user               Profile            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bucketAllocations  BucketAllocation[]
+
+  @@unique([userId, month])
+  @@index([userId])
+  @@map("salary_allocations")
+  @@schema("public")
+}
+
+model BucketAllocation {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId             String           @map("user_id") @db.Uuid
+  salaryAllocationId String           @map("salary_allocation_id") @db.Uuid
+  bucket             String
+  plannedPaisa       BigInt           @map("planned_paisa")
+  spentPaisa         BigInt           @default(0) @map("spent_paisa")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+  user               Profile          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  salaryAllocation   SalaryAllocation @relation(fields: [salaryAllocationId], references: [id], onDelete: Cascade)
+
+  @@unique([salaryAllocationId, bucket])
+  @@index([userId])
+  @@map("bucket_allocations")
+  @@schema("public")
+}
+
+model Transaction {
+  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId           String          @map("user_id") @db.Uuid
+  type             TransactionType
+  amountPaisa      BigInt          @map("amount_paisa")
+  category         String
+  bucket           String
+  paymentMethod    String          @map("payment_method")
+  occurredOn       DateTime        @map("occurred_on") @db.Date
+  note             String?
+  isPlanned        Boolean         @default(false) @map("is_planned")
+  isRecurring      Boolean         @default(false) @map("is_recurring")
+  emotionalTrigger String?         @map("emotional_trigger")
+  moneyType        String          @default("cash") @map("money_type")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  user             Profile         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, occurredOn])
+  @@map("transactions")
+  @@schema("public")
+}
+
+model Debt {
+  id                   String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId               String     @map("user_id") @db.Uuid
+  lenderName           String     @map("lender_name")
+  type                 DebtType
+  originalAmountPaisa  BigInt     @map("original_amount_paisa")
+  remainingAmountPaisa BigInt     @map("remaining_amount_paisa")
+  monthlyPaymentPaisa  BigInt     @default(0) @map("monthly_payment_paisa")
+  dueDate              DateTime?  @map("due_date") @db.Date
+  islamicConcern       Boolean    @default(true) @map("islamic_concern")
+  urgency              Urgency    @default(MEDIUM)
+  emotionalPressure    String?    @map("emotional_pressure")
+  createdAt            DateTime   @default(now()) @map("created_at")
+  updatedAt            DateTime   @updatedAt @map("updated_at")
+  user                 Profile    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("debts")
+  @@schema("public")
+}
+
+model Committee {
+  id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String     @map("user_id") @db.Uuid
+  name              String
+  contributionPaisa BigInt     @map("contribution_paisa")
+  memberCount       Int        @map("member_count")
+  receivingMonth    DateTime   @map("receiving_month") @db.Date
+  managerName       String?    @map("manager_name")
+  riskLevel         RiskLevel  @default(MEDIUM) @map("risk_level")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+  user              Profile    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("committees")
+  @@schema("public")
+}
+
+model Goal {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId        String   @map("user_id") @db.Uuid
+  title         String
+  targetPaisa   BigInt   @map("target_paisa")
+  currentPaisa  BigInt   @default(0) @map("current_paisa")
+  type          GoalType @default(CUSTOM)
+  sortOrder     Int      @default(0) @map("sort_order")
+  achievedAt    DateTime? @map("achieved_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  user          Profile  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title])
+  @@index([userId])
+  @@map("goals")
+  @@schema("public")
+}
+
+enum AllocationStatus {
+  DRAFT
+  CONFIRMED
+
+  @@schema("public")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+
+  @@schema("public")
+}
+
+enum DebtType {
+  QARZA
+  CREDIT_CARD
+  EMPLOYER_ADVANCE
+  COMMITTEE_OBLIGATION
+  OTHER
+
+  @@schema("public")
+}
+
+enum Urgency {
+  LOW
+  MEDIUM
+  HIGH
+
+  @@schema("public")
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+
+  @@schema("public")
+}
+
+enum GoalType {
+  SYSTEM
+  CUSTOM
+
+  @@schema("public")
+}

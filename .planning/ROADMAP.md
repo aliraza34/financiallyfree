@@ -10,7 +10,7 @@ MoneyMap PKR starts by locking the technical foundation and onboarding path, the
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions, marked with INSERTED
 
-- [ ] **Phase 1: Foundation, Auth, and Onboarding** - Establish stack, database safety, auth, profile sync, and first-run onboarding.
+- [ ] **Phase 1: Foundation, Auth, and Onboarding** - Establish stack, database safety, auth, profile sync, and first-run onboarding. Implementation scaffold built; Supabase verification pending.
 - [ ] **Phase 2: Salary Allocation and Transactions** - Build the core money entry loop: confirmed salary, buckets, and fast transaction logging.
 - [ ] **Phase 3: Budgets, Debt, and Committees** - Turn money records into actionable budget, Qarza, and committee management.
 - [ ] **Phase 4: Goals and Dashboard** - Surface progress, milestones, recent activity, and bucket status in one mobile-first dashboard.
@@ -126,7 +126,7 @@ Phases execute in numeric order: 1, 2, 3, 4, 5.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation, Auth, and Onboarding | 0/4 | Not started | - |
+| 1. Foundation, Auth, and Onboarding | 4/4 implemented | In progress | - |
 | 2. Salary Allocation and Transactions | 0/3 | Not started | - |
 | 3. Budgets, Debt, and Committees | 0/3 | Not started | - |
 | 4. Goals and Dashboard | 0/3 | Not started | - |

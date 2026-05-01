@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-05-01)
 
 **Core value:** Make every rupee visible: users must always know exactly how much they have to spend across each bucket, never a misleading total salary available number.
-**Current focus:** Phase 2 - Salary Allocation and Transactions
+**Current focus:** Phase 3 - Budgets, Debt, and Committees
 
 ## Current Position
 
-Phase: 2 of 5 (Salary Allocation and Transactions)
-Plan: 3 of 3 in current phase
-Status: In progress - Phase 2 implemented in local demo mode, awaiting browser UAT and Supabase-backed verification
-Last activity: 2026-05-01 - Phase 2 development added editable salary allocation, warning rules, transaction quick-add, transaction search/edit/delete, unknown-category surfacing, and dashboard spending updates.
+Phase: 3 of 5 (Budgets, Debt, and Committees)
+Plan: 0 of 3 in current phase
+Status: Ready to develop Phase 3
+Last activity: 2026-05-01 - User verified Phase 2 in browser. Salary allocation, transaction quick-add, transaction search/edit/delete, unknown-category surfacing, and dashboard spending updates are accepted as complete in local demo mode.
 
-Progress: [####------] 40%
+Progress: [#####-----] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4 verified in local demo, 3 implemented pending browser UAT
+- Total plans completed: 7 verified in local demo
 - Average duration: n/a
 - Total execution time: 0.0 hours
 
@@ -28,7 +28,7 @@ Progress: [####------] 40%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation, Auth, and Onboarding | 4/4 local verified | n/a | n/a |
-| 2. Salary Allocation and Transactions | 3/3 implemented | n/a | n/a |
+| 2. Salary Allocation and Transactions | 3/3 complete | n/a | n/a |
 | 3. Budgets, Debt, and Committees | 0/3 | n/a | n/a |
 | 4. Goals and Dashboard | 0/3 | n/a | n/a |
 | 5. Reports, Settings, and PWA Polish | 0/3 | n/a | n/a |
@@ -49,6 +49,7 @@ Recent decisions affecting current work:
 - Build schema/auth/RLS/user-scoped Prisma conventions before user-facing data screens.
 - Local demo mode is active through `AUTH_MODE="local"` in `.env.local`.
 - Phase 2 local data is cookie-backed for temporary testing; real persistence requires Supabase env and migrations.
+- User verified Phase 2 manually in browser and approved moving to Phase 3.
 
 ### Pending Todos
 
@@ -60,7 +61,7 @@ None yet.
 - Supabase Prisma migration user and dual connection strings must be configured before applying migrations.
 - Competitor claims and AI model IDs require fresh verification in later phases.
 - Phase 1 requires real Supabase env values before auth and onboarding can be manually verified end to end.
-- Phase 2 requires browser UAT for salary allocation and transaction edit/delete flows.
+- Phase 3 should continue supporting local demo mode while keeping Prisma-backed paths ready for Supabase.
 
 ## Deferred Items
 
@@ -72,5 +73,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-01
-Stopped at: Phase 2 implementation built and verified with typecheck, lint, and production build.
+Stopped at: Phase 2 marked complete after user UAT. Resume at Phase 3: Budgets, Debt, and Committees.
 Resume file: None

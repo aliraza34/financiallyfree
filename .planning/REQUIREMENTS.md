@@ -135,34 +135,34 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
-| ONBD-01 | Phase 1 | Pending |
-| ONBD-02 | Phase 1 | Pending |
-| ONBD-03 | Phase 1 | Pending |
-| ONBD-04 | Phase 1 | Pending |
-| ONBD-05 | Phase 1 | Pending |
-| ALLOC-01 | Phase 2 | Pending |
-| ALLOC-02 | Phase 2 | Pending |
-| ALLOC-03 | Phase 2 | Pending |
-| ALLOC-04 | Phase 2 | Pending |
-| ALLOC-05 | Phase 2 | Pending |
-| TXN-01 | Phase 2 | Pending |
-| TXN-02 | Phase 2 | Pending |
-| TXN-03 | Phase 2 | Pending |
-| TXN-04 | Phase 2 | Pending |
-| TXN-05 | Phase 2 | Pending |
-| TXN-06 | Phase 2 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
+| FOUND-05 | Phase 1 | Complete |
+| FOUND-06 | Phase 1 | Complete |
+| FOUND-07 | Phase 1 | Complete |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
+| ONBD-01 | Phase 1 | Complete |
+| ONBD-02 | Phase 1 | Complete |
+| ONBD-03 | Phase 1 | Complete |
+| ONBD-04 | Phase 1 | Complete |
+| ONBD-05 | Phase 1 | Complete |
+| ALLOC-01 | Phase 2 | Complete |
+| ALLOC-02 | Phase 2 | Complete |
+| ALLOC-03 | Phase 2 | Complete |
+| ALLOC-04 | Phase 2 | Complete |
+| ALLOC-05 | Phase 2 | Complete |
+| TXN-01 | Phase 2 | Complete |
+| TXN-02 | Phase 2 | Complete |
+| TXN-03 | Phase 2 | Complete |
+| TXN-04 | Phase 2 | Complete |
+| TXN-05 | Phase 2 | Complete |
+| TXN-06 | Phase 2 | Complete |
 | BUDG-01 | Phase 3 | Pending |
 | BUDG-02 | Phase 3 | Pending |
 | BUDG-03 | Phase 3 | Pending |
@@ -201,4 +201,4 @@
 
 ---
 *Requirements defined: 2026-05-01*
-*Last updated: 2026-05-01 after initial definition*
+*Last updated: 2026-05-01 after Phase 2 user verification*

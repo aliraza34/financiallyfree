@@ -10,9 +10,9 @@ MoneyMap PKR starts by locking the technical foundation and onboarding path, the
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions, marked with INSERTED
 
-- [ ] **Phase 1: Foundation, Auth, and Onboarding** - Establish stack, database safety, auth, profile sync, and first-run onboarding. Implementation scaffold built; Supabase verification pending.
-- [ ] **Phase 2: Salary Allocation and Transactions** - Build the core money entry loop: confirmed salary, buckets, and fast transaction logging. Implementation built in local demo mode; browser UAT pending.
-- [ ] **Phase 3: Budgets, Debt, and Committees** - Turn money records into actionable budget, Qarza, and committee management.
+- [x] **Phase 1: Foundation, Auth, and Onboarding** - Establish stack, database safety, auth, profile sync, and first-run onboarding. Local demo verified; Supabase verification pending.
+- [x] **Phase 2: Salary Allocation and Transactions** - Build the core money entry loop: confirmed salary, buckets, and fast transaction logging. User verified complete in local demo mode.
+- [ ] **Phase 3: Budgets, Debt, and Committees** - Turn money records into actionable budget, Qarza, and committee management. Next up.
 - [ ] **Phase 4: Goals and Dashboard** - Surface progress, milestones, recent activity, and bucket status in one mobile-first dashboard.
 - [ ] **Phase 5: Reports, Settings, and PWA Polish** - Complete v1 with monthly review, settings, reminders, installability, and mobile ergonomics.
 
@@ -32,10 +32,10 @@ MoneyMap PKR starts by locking the technical foundation and onboarding path, the
 **Plans**: 4 plans
 
 Plans:
-- [ ] 01-01: Scaffold Next.js, TypeScript, Tailwind, shadcn/ui, Supabase, Prisma, and environment conventions.
-- [ ] 01-02: Define Prisma schema, Supabase profile trigger, RLS policy templates, migration setup, and user-scoped data access helpers.
-- [ ] 01-03: Implement Supabase auth routes, middleware, session verification, profile creation, and onboarding gate.
-- [ ] 01-04: Build five-step onboarding, preferences capture, salary day handling, milestone seeding, and PKR utility coverage.
+- [x] 01-01: Scaffold Next.js, TypeScript, Tailwind, shadcn/ui, Supabase, Prisma, and environment conventions.
+- [x] 01-02: Define Prisma schema, Supabase profile trigger, RLS policy templates, migration setup, and user-scoped data access helpers.
+- [x] 01-03: Implement Supabase auth routes, middleware, session verification, profile creation, and onboarding gate.
+- [x] 01-04: Build five-step onboarding, preferences capture, salary day handling, milestone seeding, and PKR utility coverage.
 
 ### Phase 2: Salary Allocation and Transactions
 **Goal**: User can confirm salary, assign every rupee to buckets, and log Pakistan-local transactions quickly on mobile.
@@ -51,9 +51,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Build salary confirmation, six-bucket allocation data model, validation, and warning rules.
-- [ ] 02-02: Build transaction CRUD, Pakistan-local categories/payment methods, emotional triggers, and strict user scoping.
-- [ ] 02-03: Build mobile quick-add, transaction list search/filter, unknown-category surfacing, and edit/delete interactions.
+- [x] 02-01: Build salary confirmation, six-bucket allocation data model, validation, and warning rules.
+- [x] 02-02: Build transaction CRUD, Pakistan-local categories/payment methods, emotional triggers, and strict user scoping.
+- [x] 02-03: Build mobile quick-add, transaction list search/filter, unknown-category surfacing, and edit/delete interactions.
 
 ### Phase 3: Budgets, Debt, and Committees
 **Goal**: User can see planned versus actual budget state, manage debts, and model committees as first-class obligations.
@@ -126,8 +126,8 @@ Phases execute in numeric order: 1, 2, 3, 4, 5.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation, Auth, and Onboarding | 4/4 implemented | In progress | - |
-| 2. Salary Allocation and Transactions | 3/3 implemented | In progress | - |
+| 1. Foundation, Auth, and Onboarding | 4/4 | Complete | 2026-05-01 |
+| 2. Salary Allocation and Transactions | 3/3 | Complete | 2026-05-01 |
 | 3. Budgets, Debt, and Committees | 0/3 | Not started | - |
 | 4. Goals and Dashboard | 0/3 | Not started | - |
 | 5. Reports, Settings, and PWA Polish | 0/3 | Not started | - |

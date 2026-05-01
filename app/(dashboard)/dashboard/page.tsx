@@ -5,20 +5,25 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { requireOnboardedUser } from "@/lib/auth";
 import { budgetBuckets } from "@/lib/constants";
-import { getLocalBucketAllocations, isLocalAuthMode } from "@/lib/local-session";
+import { getLocalAllocation, getLocalTransactions, isLocalAuthMode } from "@/lib/local-session";
 import { formatPKR } from "@/lib/pkr";
 import { prisma } from "@/lib/prisma";
 
 export default async function DashboardPage() {
   const { user, profile } = await requireOnboardedUser();
   const allocation = isLocalAuthMode()
-    ? {
-        bucketAllocations: getLocalBucketAllocations(profile.salaryPaisa),
-      }
+    ? await getLocalAllocation(profile)
     : await prisma.salaryAllocation.findFirst({
         where: { userId: user.id },
         orderBy: { month: "desc" },
         include: { bucketAllocations: true },
+      });
+  const recentTransactions = isLocalAuthMode()
+    ? (await getLocalTransactions()).slice(0, 5)
+    : await prisma.transaction.findMany({
+        where: { userId: user.id },
+        orderBy: { occurredOn: "desc" },
+        take: 5,
       });
 
   if (!allocation) {
@@ -46,9 +51,13 @@ export default async function DashboardPage() {
       <section className="space-y-4">
         <Card className="border-[var(--primary)] bg-[#eef8f1]">
           <p className="text-sm font-semibold text-[var(--primary)]">Today&apos;s Action</p>
-          <h2 className="mt-1 text-xl font-bold">Confirm that every salary rupee has a job.</h2>
+          <h2 className="mt-1 text-xl font-bold">
+            {recentTransactions.length ? "Review your latest spending." : "Add your first transaction."}
+          </h2>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-            Phase 1 seeds the starter buckets. Phase 2 will let you tune them rupee by rupee.
+            {recentTransactions.length
+              ? "Bucket spending updates as you log entries."
+              : "Use Entries to record where today's rupees went."}
           </p>
         </Card>
 
@@ -90,6 +99,27 @@ export default async function DashboardPage() {
                 </Card>
               );
             })}
+          </div>
+        </div>
+
+        <div>
+          <h2 className="mb-3 text-lg font-bold">Recent entries</h2>
+          <div className="space-y-2">
+            {recentTransactions.length === 0 ? (
+              <Card>
+                <p className="font-semibold">No transactions logged yet.</p>
+                <p className="mt-1 text-sm text-[var(--muted-foreground)]">Add an entry to start seeing actual bucket spending.</p>
+              </Card>
+            ) : null}
+            {recentTransactions.map((transaction) => (
+              <Card key={transaction.id} className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="font-semibold">{transaction.category}</p>
+                  <p className="text-sm text-[var(--muted-foreground)]">{transaction.paymentMethod}</p>
+                </div>
+                <p className="font-bold">{formatPKR(transaction.amountPaisa)}</p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

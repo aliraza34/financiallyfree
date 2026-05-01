@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasSupabasePublicEnv } from "@/lib/env";
+import { isLocalAuthMode } from "@/lib/local-session";
 
 const publicRoutes = ["/login", "/register"];
 
@@ -13,6 +14,24 @@ export async function updateSession(request: NextRequest) {
     path.startsWith("/manifest") ||
     path.startsWith("/icon") ||
     path.includes(".");
+
+  if (isLocalAuthMode()) {
+    const hasDemoUser = request.cookies.has("moneymap_demo_user");
+
+    if (!hasDemoUser && !isPublicRoute && !isStaticAsset) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+
+    if (hasDemoUser && isPublicRoute) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url);
+    }
+
+    return NextResponse.next({ request });
+  }
 
   if (!hasSupabasePublicEnv()) {
     if (isPublicRoute || isStaticAsset) {

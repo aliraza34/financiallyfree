@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { requireUser } from "@/lib/auth";
+import { isLocalAuthMode, setLocalProfile } from "@/lib/local-session";
 import { completeOnboarding } from "@/lib/onboarding";
 
 const onboardingSchema = z.object({
@@ -31,6 +32,14 @@ export async function completeOnboardingAction(formData: FormData) {
 
   if (!parsed.success) {
     redirect("/onboarding?error=Please check the amounts and salary day.");
+  }
+
+  if (isLocalAuthMode()) {
+    await setLocalProfile({
+      id: user.id,
+      ...parsed.data,
+    });
+    redirect("/dashboard");
   }
 
   await completeOnboarding({

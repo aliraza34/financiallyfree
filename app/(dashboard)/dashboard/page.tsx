@@ -5,16 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { requireOnboardedUser } from "@/lib/auth";
 import { budgetBuckets } from "@/lib/constants";
+import { getLocalBucketAllocations, isLocalAuthMode } from "@/lib/local-session";
 import { formatPKR } from "@/lib/pkr";
 import { prisma } from "@/lib/prisma";
 
 export default async function DashboardPage() {
   const { user, profile } = await requireOnboardedUser();
-  const allocation = await prisma.salaryAllocation.findFirst({
-    where: { userId: user.id },
-    orderBy: { month: "desc" },
-    include: { bucketAllocations: true },
-  });
+  const allocation = isLocalAuthMode()
+    ? {
+        bucketAllocations: getLocalBucketAllocations(profile.salaryPaisa),
+      }
+    : await prisma.salaryAllocation.findFirst({
+        where: { userId: user.id },
+        orderBy: { month: "desc" },
+        include: { bucketAllocations: true },
+      });
 
   if (!allocation) {
     redirect("/onboarding");

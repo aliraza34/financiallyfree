@@ -1,8 +1,13 @@
 import { redirect } from "next/navigation";
+import { getLocalProfile, getLocalUser, isLocalAuthMode } from "@/lib/local-session";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
 export async function getCurrentUser() {
+  if (isLocalAuthMode()) {
+    return getLocalUser();
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -27,6 +32,10 @@ export async function requireUser() {
 }
 
 export async function getProfile(userId: string) {
+  if (isLocalAuthMode()) {
+    return getLocalProfile();
+  }
+
   return prisma.profile.findUnique({
     where: { id: userId },
   });
